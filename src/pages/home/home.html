@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Notable Notes
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card *ngFor="let note of notes" (tap)="onItemClick(note)">
+    <ion-card-header>
+    {{ note.date | date }}
+    </ion-card-header>
+    <ion-card-content>
+    <ion-card-title>
+    {{ note.title }}
+    </ion-card-title>
+    <p>
+    {{ note.content }}
+    </p>
+    </ion-card-content>
+  </ion-card>
+  <ion-fab right bottom>
+    <button ion-fab color="primary" (tap)="onAddClick()">
+    <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+</ion-content>
