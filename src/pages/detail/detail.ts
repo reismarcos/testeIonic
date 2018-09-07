@@ -20,6 +20,8 @@ export class Detail {
 
   note;
   newNoteFlag = false;
+  deleteNoteFlag = false;
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private noteService: NoteService, private alertCtrl: AlertController) {
     this.note = this.navParams.get('noteParam');
@@ -46,7 +48,8 @@ export class Detail {
       {
         text: 'Confirm',
         handler: () => {
-        this.noteService.removeNote(this.note);
+        //this.noteService.removeNote(this.note);
+        this.deleteNoteFlag = true;
         this.navCtrl.pop();
         }
         }
@@ -64,6 +67,11 @@ export class Detail {
     else if(this.newNoteFlag){
       this.noteService.addNote(this.note);      
     }
+    else if(this.deleteNoteFlag){
+      this.noteService.removeNote(this.note);
+      console.log("delete note");
+    }
+      
     else{
       
     }

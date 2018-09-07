@@ -1,5 +1,22 @@
+import { Storage } from '@ionic/storage';
+import { Injectable } from '@angular/core';
+@Injectable()
+
 export class NoteService{
     // copy notes data from home page
+    constructor(private storage : Storage){
+    }
+    fetchNotes(){
+    return this.storage.get('notes')
+    .then(
+    (notes) => {
+    notes? this.notes = notes : this.notes = [];
+    })
+    .catch(
+    err => console.log(err)
+    );
+    }
+    
     notes = [
     {
     id: '1',
@@ -25,13 +42,34 @@ export class NoteService{
         let index = this.notes.indexOf(note);
         if(index > -1){
             this.notes.splice(index,1);
+            this.writeToStorage();
+
         }
     }
 
     addNote(note){
         this.notes.push(note);
+        this.writeToStorage();
     }
+
+    editNote(note){
+        this.writeToStorage();
+    }
+
+    writeToStorage(){
+        this.storage.set('notes',this.notes) // set key-value pairs
+        .then(// successful add
+        // do nothing
+        )
+        .catch(err => {// catch errors and do error handling here
+            err => console.log(err);
+            
+        });
+        }
+    }
+    
         
         
-}
+        
+
     

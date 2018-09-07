@@ -10,8 +10,13 @@ import { NoteService } from '../../app/note.service';
 export class HomePage {
   notes;
   constructor(public navCtrl: NavController, private noteService: NoteService) {
-  this.notes = noteService.notes;
   }
+  ngOnInit(){
+  this.noteService.fetchNotes()
+  .then(res => {
+  this.notes = this.noteService.notes;
+  });
+}
   
 
   onItemClick(note){
